@@ -2,18 +2,16 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachine<EState> : MonoBehaviour where EState : Enum
+public class StateManager<EState> : MonoBehaviour where EState : Enum
 {
     protected BaseState<EState> currentState;
     protected Dictionary<EState, BaseState<EState>> states = new();
-
 
     protected bool isInitialized = false;
 
     void Start() {
         currentState.EnterState();
     }
-
 
     void Update() {
         EState newState = currentState.GetNextState();
