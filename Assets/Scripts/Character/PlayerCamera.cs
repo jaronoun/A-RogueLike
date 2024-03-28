@@ -4,42 +4,21 @@ using UnityEngine.Animations.Rigging;
 
 public class PlayerCamera : MonoBehaviour
 {
-    public CinemachineFreeLook thirdPersonCamera;
-    public Transform cameraTransform;
-    public Transform characterTransform;
-    private Vector2 look;
+    [Header("Camera")]
+    [SerializeField] private CinemachineFreeLook thirdPersonCamera;
+    [SerializeField] private Transform cameraTransform;
 
-    public PlayerControls controls;
+    private Transform characterTransform;
 
+    [Header("Aim Rig")]
     public Rig headRig;
-
     public LayerMask aimLayerMask; // The layer mask to use for the aim raycast
     public Transform headTransform; // Assign this to your character's head transform in the Inspector
     public Transform headTarget;
 
     public float rayLength = 100f; // How far the raycast will go
 
-    void Awake() {
-        controls = new PlayerControls();
-
-        controls.Gameplay.Look.performed += ctx => look = ctx.ReadValue<Vector2>();
-        controls.Gameplay.Look.canceled += ctx => look = Vector2.zero;
-    }
-
-    void OnEnable() {
-        controls.Gameplay.Enable();
-    }
-
-    void OnDisable() {
-        controls.Gameplay.Disable();
-    }
-
-    void Update() {
-
-        AdjustHeadRigWeight();
-        
-        ShootRaycastFromCamera();
-
+    public void Look(Vector2 look) {
         if (thirdPersonCamera) {
             thirdPersonCamera.m_XAxis.Value += look.x * Time.deltaTime * 200;
             thirdPersonCamera.m_YAxis.Value += look.y * Time.deltaTime;

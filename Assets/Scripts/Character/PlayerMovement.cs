@@ -1,55 +1,90 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField] public float baseSpeed = 1.8f;
     [SerializeField] public float midSpeed = 3.6f;
     [SerializeField] public float maxSpeed = 5.4f;
     [SerializeField] public float rotationSpeed = 10.0f;
-    [SerializeField] public float jumpForce = 5.0f;
 
-    public LayerMask groundLayer;
-    public Transform groundCheck;
-    public PlayerControls controls; 
-    public Transform cameraTransform;
-    public PhysicMaterial slipperyMaterial; // Assign your slippery material in inspector
-    public AnimationStateController animationStateController;
+    [Header("Camera")]
+    [SerializeField] private Transform cameraTransform;
 
-    private Rigidbody rb;
+    //[Header("Animation")]
+    //[SerializeField] private AnimationStateController animationStateController;
+
+    [Header("Physics")]
+    [SerializeField] private Rigidbody rb;
+
     private Vector2 move;
-    private CapsuleCollider col;
-    private PhysicMaterial defaultMaterial;
-
     private bool isRunning = false; // Flag to check if the player is currently running
 
-    void Awake() {
-        controls = new PlayerControls();
-        rb = GetComponent<Rigidbody>();
-        col = GetComponent<CapsuleCollider>();
+    public void Move(Vector2 movementInput) {
+        move = movementInput;
 
-        controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
-        controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
+        float moveHorizontal = move.x;
+        float moveVertical = move.y;
 
-        controls.Gameplay.Jump.performed += ctx => Jump();
+        Vector3 cameraForward = cameraTransform.forward;
+        Vector3 cameraRight = cameraTransform.right;
 
-        // Setup the Run action to trigger the methods for starting and stopping running
-        controls.Gameplay.Run.performed += ctx => StartRunning();
-        controls.Gameplay.Run.canceled += ctx => StopRunning();
+        cameraForward.y = 0; // Ensure movement is only on the horizontal plane
+        cameraRight.y = 0;
+
+        Vector3 adjustedMovement = (cameraForward * moveVertical + cameraRight * moveHorizontal).normalized;
+
+        // Determine the current speed based on whether the player is running
+        float currentSpeed = isRunning ? maxSpeed : Mathf.Lerp(baseSpeed, midSpeed, adjustedMovement.magnitude);
+
+        // Check if the player is moving
+        if (adjustedMovement.magnitude > 0) {
+            Quaternion targetRotation;
+
+            if (isRunning) {
+                // When running, the character maintains its direction based on movement input
+                targetRotation = Quaternion.LookRotation(adjustedMovement);
+            } else {
+                // When not running and moving, the character faces the camera's direction
+                targetRotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
+            }
+
+            // Apply the rotation
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+        }
+
+        // Apply the movement
+        rb.MovePosition(rb.position + adjustedMovement * currentSpeed * Time.fixedDeltaTime);
+    
     }
 
-    void OnEnable() {
-        controls.Gameplay.Enable();
+    public void StartRunning()
+    {
+        // Check if there's significant movement input
+        float moveMagnitude = new Vector3(move.x, 0, move.y).magnitude;
+
+        // Consider the player to be moving if the magnitude is greater than a small threshold (e.g., 0.1)
+        if (moveMagnitude > 0.1f || moveMagnitude < -0.1f)
+        {
+            isRunning = true;
+            //animationStateController.isRunning();
+        }
+        else
+        {
+            // Optionally, stop running if there's no movement input
+            isRunning = false;
+            //animationStateController.isNotRunning();
+        }
     }
 
-    void OnDisable() {
-        controls.Gameplay.Disable();
+    public void StopRunning()
+    {
+        isRunning = false;
+        //animationStateController.isNotRunning();
     }
 
+/*
     void Update() {
-        
         // Update animator with grounded status
         if (IsGrounded()) {
             animationStateController.isGrounded();
@@ -71,7 +106,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void FixedUpdate() {
-
         float moveHorizontal = move.x;
         float moveVertical = move.y;
 
@@ -112,41 +146,9 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(rb.position + adjustedMovement * currentSpeed * Time.fixedDeltaTime);
     }
 
-    private void StartRunning()
-    {
-        // Check if there's significant movement input
-        float moveMagnitude = new Vector3(move.x, 0, move.y).magnitude;
+    
 
-        // Consider the player to be moving if the magnitude is greater than a small threshold (e.g., 0.1)
-        if (moveMagnitude > 0.1f || moveMagnitude < -0.1f)
-        {
-            isRunning = true;
-            animationStateController.isRunning();
-        }
-        else
-        {
-            // Optionally, stop running if there's no movement input
-            isRunning = false;
-            animationStateController.isNotRunning();
-        }
-    }
-
-    private void StopRunning()
-    {
-        isRunning = false;
-        animationStateController.isNotRunning();
-    }
-
-    void Jump() {
-        if (IsGrounded()) {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            animationStateController.StartJump();
-        } 
-    }
-
-    public bool IsGrounded() {
-        return Physics.CheckSphere(groundCheck.position, 0.1f, groundLayer);
-    }
+    
 
     void SetCapsuleColliderHitbox(String colliderType) {
         switch (colliderType) {
@@ -161,6 +163,6 @@ public class PlayerMovement : MonoBehaviour
                 col.height = 1.312492f;
                 break;
         }
-    }
+    }*/
 
 }
