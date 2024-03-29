@@ -126,43 +126,6 @@ public class PlayerMovement : MonoBehaviour
             animationStateController.isNotRunning();
             isRunning = false;
         }
-
-        // Determine the current speed based on whether the player is running
-        float currentSpeed = isRunning ? maxSpeed : Mathf.Lerp(baseSpeed, midSpeed, adjustedMovement.magnitude);
-
-        // When the player isn't running, character should face the camera's direction
-        if (!isRunning && adjustedMovement.magnitude > 0) {
-            // Make the character face in the direction the camera is facing
-            Quaternion targetRotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
-        } 
-        // When running, the character maintains its direction without automatically aligning with the camera's aim
-        else if (isRunning && adjustedMovement != Vector3.zero) {
-            Quaternion runDirectionRotation = Quaternion.LookRotation(adjustedMovement);
-            transform.rotation = Quaternion.Slerp(transform.rotation, runDirectionRotation, rotationSpeed * Time.fixedDeltaTime);
-        }
-
-        // Apply the movement
-        rb.MovePosition(rb.position + adjustedMovement * currentSpeed * Time.fixedDeltaTime);
-    }
-
-    
-
-    
-
-    void SetCapsuleColliderHitbox(String colliderType) {
-        switch (colliderType) {
-            case "standing":
-                col.center = new Vector3(0, 0.9f, 0);
-                col.radius = 0.27f;
-                col.height = 1.8f;
-                break;
-            case "mid air":
-                col.center = new Vector3(0.1f, 1f, 0);
-                col.radius = 0.2f;
-                col.height = 1.312492f;
-                break;
-        }
-    }*/
+    */
 
 }
