@@ -10,14 +10,14 @@ public class StateManager<EState> : MonoBehaviour where EState : Enum
     protected bool isInitialized = false;
 
     void Start() {
-        currentState.EnterState();
+        currentState.Enter();
     }
 
     void Update() {
         EState newState = currentState.GetNextState();
 
         if (!newState.Equals(currentState.stateKey)) ChangeState(newState);
-        if (isInitialized) currentState.UpdateState();
+        if (isInitialized) currentState.Update();
     }
 
     void OnTriggerEnter(Collider other) {
@@ -34,9 +34,9 @@ public class StateManager<EState> : MonoBehaviour where EState : Enum
 
     public void ChangeState(EState newState) {
         isInitialized = false;
-        currentState.ExitState();
+        currentState.Exit();
         currentState = states[newState];
-        currentState.EnterState();
+        currentState.Enter();
         isInitialized = true;
     }
 

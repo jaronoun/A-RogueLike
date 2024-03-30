@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PhysicMaterial slipperyMaterial; // Assign your slippery material in inspector
     private PhysicMaterial defaultMaterial;
 
+    [Header("State Manager")]
+    [SerializeField] private PlayerStateManager playerStateManager;
+
     private Vector2 move;
     private Vector2 look;
 

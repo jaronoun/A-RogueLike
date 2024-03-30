@@ -9,9 +9,9 @@ public abstract class BaseState<EState> where EState : Enum
 
     public EState stateKey { get; private set; }
 
-    public abstract void EnterState();
-    public abstract void ExitState();
-    public abstract void UpdateState();
+    public abstract void Enter();
+    public abstract void Exit();
+    public abstract void Update();
 
     public abstract EState GetNextState();
 

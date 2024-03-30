@@ -7,9 +7,9 @@ public class PlayerJumpingState : PlayerState
         PlayerContext playerContext = context;
     }
 
-    public override void EnterState() {}
-    public override void UpdateState() {}
-    public override void ExitState() {}
+    public override void Enter() {}
+    public override void Update() {}
+    public override void Exit() {}
 
     public override PlayerStateManager.EPlayerState GetNextState() 
     {

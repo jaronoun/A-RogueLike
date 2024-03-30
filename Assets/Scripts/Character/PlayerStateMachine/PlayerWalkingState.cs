@@ -2,14 +2,21 @@ using UnityEngine;
 
 public class PlayerWalkingState : PlayerState
 {
+
     public PlayerWalkingState(PlayerContext context) : base(context, PlayerStateManager.EPlayerState.Walking)
     {
-        PlayerContext playerContext = context;
     }
 
-    public override void EnterState() {}
-    public override void UpdateState() {}
-    public override void ExitState() {}
+    public override void Enter() 
+    {
+        context.player.SetGrounded(true);
+        context.player.SetWalking(true);
+        context.player.SetRunning(false);
+        context.player.SetFalling(false);
+    }
+
+    public override void Update() {}
+    public override void Exit() {}
 
     public override PlayerStateManager.EPlayerState GetNextState() 
     {

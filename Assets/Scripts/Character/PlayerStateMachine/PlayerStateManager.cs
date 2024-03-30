@@ -13,41 +13,15 @@ public class PlayerStateManager : StateManager<PlayerStateManager.EPlayerState>
         Jumping,
         Falling,
         Landing,
-        //Crouching,
-        //Sliding,
         Climbing,
-        //Swimming,
-        //Diving,
-        //Drowning,
-        //Dead
     }
 
     void Awake() {
         playerAnimation = GetComponent<PlayerAnimation>();
-        playerContext = new PlayerContext();
+        playerContext = new PlayerContext(playerAnimation);
         InitializePlayerStates();
 
     }
-
-    // When changing states, ensure the appropriate animation is triggered
-
-    // void TriggerAnimationForState(EPlayerState state)
-    // {
-    //     switch (state)
-    //     {
-    //         case EPlayerState.Idle:
-    //             playerAnimation.SetWalking(false);
-    //             playerAnimation.SetRunning(false);
-    //             break;
-    //         case EPlayerState.Walking:
-    //             playerAnimation.SetWalking(true);
-    //             break;
-    //         case EPlayerState.Running:
-    //             playerAnimation.SetRunning(true);
-    //             break;
-    //         // Handle other states similarly
-    //     }
-    // }
 
     private void InitializePlayerStates()
     {
@@ -58,6 +32,11 @@ public class PlayerStateManager : StateManager<PlayerStateManager.EPlayerState>
         states.Add(EPlayerState.Falling, new PlayerFallingState(playerContext));
         states.Add(EPlayerState.Landing, new PlayerLandingState(playerContext));
         currentState = states[EPlayerState.Idle];
+    }
+
+    void Update()
+    {
+        currentState.Update();
     }
 
 }
