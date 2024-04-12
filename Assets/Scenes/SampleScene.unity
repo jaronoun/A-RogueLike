@@ -5769,11 +5769,13 @@ GameObject:
   - component: {fileID: 5273259420660349285}
   - component: {fileID: 5484871246211964997}
   - component: {fileID: 5225993981780668138}
-  - component: {fileID: 9143497818864192046}
+  - component: {fileID: 9143497818864192052}
+  - component: {fileID: 9143497818864192049}
   - component: {fileID: 9143497818864192048}
   - component: {fileID: 9143497818864192047}
-  - component: {fileID: 9143497818864192049}
+  - component: {fileID: 9143497818864192051}
   - component: {fileID: 9143497818864192050}
+  - component: {fileID: 9143497818864192053}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5781,22 +5783,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &9143497818864192046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9143497818864192045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0545b95b55f16f644b54fcd05045ab12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCamera: {fileID: 9143497818864192049}
-  playerMovement: {fileID: 9143497818864192048}
-  playerJump: {fileID: 9143497818864192047}
-  slipperyMaterial: {fileID: 13400000, guid: 1565b7f52a5b79e418d3f83abd1fbc27, type: 2}
 --- !u!114 &9143497818864192047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5869,6 +5855,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7188588581256187838}
+--- !u!114 &9143497818864192051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143497818864192045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d1b88aa3205b941b5e32eff665710c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9143497818864192052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143497818864192045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0545b95b55f16f644b54fcd05045ab12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 9143497818864192049}
+  playerMovement: {fileID: 9143497818864192048}
+  playerJump: {fileID: 9143497818864192047}
+  playerStateManager: {fileID: 9143497818864192051}
+  slipperyMaterial: {fileID: 13400000, guid: 1565b7f52a5b79e418d3f83abd1fbc27, type: 2}
+--- !u!114 &9143497818864192053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143497818864192045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c00b2fbb76beecb45b4f343795d3eee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerJump: {fileID: 9143497818864192047}
+  playerCamera: {fileID: 9143497818864192049}
+  playerMovement: {fileID: 9143497818864192048}
+  playerAnimation: {fileID: 9143497818864192050}
+  rb: {fileID: 5225993981780668138}
+  col: {fileID: 5484871246211964997}
 --- !u!1 &9168466910967899001
 GameObject:
   m_ObjectHideFlags: 0

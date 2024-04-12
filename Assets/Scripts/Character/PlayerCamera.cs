@@ -7,8 +7,7 @@ public class PlayerCamera : MonoBehaviour
     [Header("Camera")]
     [SerializeField] private CinemachineFreeLook thirdPersonCamera;
     [SerializeField] private Transform cameraTransform;
-
-    private Transform characterTransform;
+    [SerializeField] private Transform characterTransform;
 
     [Header("Aim Rig")]
     public Rig headRig;
@@ -25,7 +24,7 @@ public class PlayerCamera : MonoBehaviour
         }
     }
 
-    void ShootRaycastFromCamera()
+    public void ShootRaycastFromCamera()
     {
         Vector3 forwardDirection = cameraTransform.forward; // Use the camera's forward direction
         RaycastHit hit;
@@ -47,7 +46,7 @@ public class PlayerCamera : MonoBehaviour
         }
     }
 
-    void AdjustHeadRigWeight()
+    public void AdjustHeadRigWeight()
     {
         // Calculate the relative yaw angle between the character and the camera
         Vector3 characterForwardFlat = Vector3.ProjectOnPlane(characterTransform.forward, Vector3.up);

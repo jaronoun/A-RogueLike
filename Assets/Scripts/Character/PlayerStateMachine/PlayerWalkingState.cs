@@ -9,13 +9,17 @@ public class PlayerWalkingState : PlayerState
 
     public override void Enter() 
     {
-        context.player.SetGrounded(true);
-        context.player.SetWalking(true);
-        context.player.SetRunning(false);
-        context.player.SetFalling(false);
+        context.playerAnim.SetGrounded(true);
+        context.playerAnim.SetWalking(true);
+        context.playerAnim.SetRunning(false);
+        context.playerAnim.SetFalling(false);
     }
 
-    public override void Update() {}
+    public override void Update() 
+    {
+        Vector2 movement = context.playerMove.currentMove;
+        context.playerAnim.SetMovement(movement.x, movement.y);
+    }
     public override void Exit() {}
 
     public override PlayerStateManager.EPlayerState GetNextState() 

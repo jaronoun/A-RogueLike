@@ -18,26 +18,24 @@ public class PlayerController : MonoBehaviour
     [Header("Jumping")]
     [SerializeField] private PlayerJump playerJump;
 
-    [Header("Physics")]
-    [SerializeField] private PhysicMaterial slipperyMaterial; // Assign your slippery material in inspector
-    private PhysicMaterial defaultMaterial;
-
     [Header("State Manager")]
     [SerializeField] private PlayerStateManager playerStateManager;
 
+    [Header("Physics")]
+    [SerializeField] private PhysicMaterial slipperyMaterial; // Assign your slippery material in inspector
+    private PhysicMaterial defaultMaterial;
+    
     private Vector2 move;
     private Vector2 look;
-
 
     private void Awake() {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
 
         controls = new PlayerControls();
-
         // Controls for moving
-        controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
-        controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
+        controls.Gameplay.Move.performed += ctx => { move = ctx.ReadValue<Vector2>(); playerStateManager.HandleMovement(move); };
+        controls.Gameplay.Move.canceled += ctx => { move = Vector2.zero; playerStateManager.HandleMovement(move); };
         // Controls for jumping
         controls.Gameplay.Jump.performed += ctx => Jump();
         // Controls for running
@@ -58,6 +56,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update() {
         playerCamera.Look(look);
+        playerCamera.ShootRaycastFromCamera();
+        playerCamera.AdjustHeadRigWeight();
         SetMaterial();
         // Call other non-movement methods here (e.g., ShootRaycastFromCamera, AdjustHeadRigWeight)
     }

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerStateManager : StateManager<PlayerStateManager.EPlayerState>
 {
-    private PlayerAnimation playerAnimation;
     private PlayerContext playerContext;
     
     public enum EPlayerState
@@ -17,10 +16,10 @@ public class PlayerStateManager : StateManager<PlayerStateManager.EPlayerState>
     }
 
     void Awake() {
-        playerAnimation = GetComponent<PlayerAnimation>();
-        playerContext = new PlayerContext(playerAnimation);
+        PlayerAnimation playerAnimation = GetComponent<PlayerAnimation>();
+        PlayerMovement playerMovement = GetComponent<PlayerMovement>();
+        playerContext = new PlayerContext(playerAnimation, playerMovement);
         InitializePlayerStates();
-
     }
 
     private void InitializePlayerStates()
@@ -37,6 +36,12 @@ public class PlayerStateManager : StateManager<PlayerStateManager.EPlayerState>
     void Update()
     {
         currentState.Update();
+    }
+
+    public void HandleMovement(Vector2 movement) {
+        // Determine whether to change to Walking or Idle
+        if (movement != Vector2.zero) ChangeState(EPlayerState.Walking);
+        else ChangeState(EPlayerState.Idle);
     }
 
 }

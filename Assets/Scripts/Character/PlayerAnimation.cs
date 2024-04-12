@@ -5,11 +5,6 @@ public class PlayerAnimation : MonoBehaviour
     [Header("Animator")]
     [SerializeField] private Animator animator;
 
-    private void Start() 
-    {
-        animator = GetComponent<Animator>();
-    }
-
     // General method for setting bools to reduce redundancy
     private void SetBool(string name, bool state)
     {

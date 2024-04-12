@@ -9,10 +9,10 @@ public class PlayerIdleState : PlayerState
 
     public override void Enter() 
     {
-        context.player.SetGrounded(true);
-        context.player.SetWalking(false);
-        context.player.SetRunning(false);
-        context.player.SetFalling(false);
+        context.playerAnim.SetGrounded(true);
+        context.playerAnim.SetWalking(false);
+        context.playerAnim.SetRunning(false);
+        context.playerAnim.SetFalling(false);
     }
 
     public override void Update() 

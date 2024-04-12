@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody rb;
 
     private Vector2 move;
+    public Vector2 currentMove => move;
     private bool isRunning = false; // Flag to check if the player is currently running
 
     public void Move(Vector2 movementInput) {
