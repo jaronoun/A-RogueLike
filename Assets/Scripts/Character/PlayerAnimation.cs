@@ -41,9 +41,9 @@ public class PlayerAnimation : MonoBehaviour
         SetTrigger("StartJump");
     }
 
-    public void SetFalling(bool state)
+    public void SetMidJump(bool state)
     {
-        SetBool("isFalling", state);
+        SetBool("isMidJump", state);
     }
 
     public void SetGrounded(bool state)

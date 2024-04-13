@@ -1,13 +1,20 @@
 using UnityEngine;
 
-public class PlayerRunningState : PlayerState
+public class PlayerLandingState : PlayerState
 {
-    public PlayerRunningState(PlayerContext context) : base(context, PlayerStateManager.EPlayerState.Running)
+    public PlayerLandingState(PlayerContext context) : base(context, PlayerStateManager.EPlayerState.Landing)
     {
         PlayerContext playerContext = context;
     }
 
-    public override void Enter() {}
+    public override void Enter() 
+    {
+        Debug.Log("Player Landing");
+        context.playerAnim.SetMidJump(false);
+        context.playerAnim.SetGrounded(true);
+        context.playerAnim.SetWalking(false);
+        context.playerAnim.SetRunning(false);
+    }
     public override void Update() {}
     public override void Exit() {}
 

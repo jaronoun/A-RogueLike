@@ -15,6 +15,7 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] private CapsuleCollider col;
 
     private bool isGrounded;
+    public bool isPlayerGrounded => isGrounded;
     
     public bool CheckGrounded() {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);

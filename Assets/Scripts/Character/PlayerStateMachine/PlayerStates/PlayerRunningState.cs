@@ -1,24 +1,23 @@
 using UnityEngine;
 
-public class PlayerWalkingState : PlayerState
+public class PlayerRunningState : PlayerState
 {
-
-    public PlayerWalkingState(PlayerContext context) : base(context, PlayerStateManager.EPlayerState.Walking)
+    public PlayerRunningState(PlayerContext context) : base(context, PlayerStateManager.EPlayerState.Running)
     {
+        PlayerContext playerContext = context;
     }
 
     public override void Enter() 
     {
+        Debug.Log("Player Running");
         context.playerAnim.SetGrounded(true);
-        context.playerAnim.SetWalking(true);
-        context.playerAnim.SetRunning(false);
-        context.playerAnim.SetFalling(false);
+        context.playerAnim.SetWalking(false);
+        context.playerAnim.SetRunning(true);
+        context.playerAnim.SetMidJump(false);
     }
-
     public override void Update() 
     {
-        Vector2 movement = context.playerMove.currentMove;
-        context.playerAnim.SetMovement(movement.x, movement.y);
+        if (!context.playerJump.isPlayerGrounded) context.playerState.ChangeState(PlayerStateManager.EPlayerState.MidJump);
     }
     public override void Exit() {}
 

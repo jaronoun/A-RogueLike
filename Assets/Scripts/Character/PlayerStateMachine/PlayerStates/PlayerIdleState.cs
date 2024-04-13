@@ -9,10 +9,11 @@ public class PlayerIdleState : PlayerState
 
     public override void Enter() 
     {
+        Debug.Log("Player Idle");
         context.playerAnim.SetGrounded(true);
         context.playerAnim.SetWalking(false);
         context.playerAnim.SetRunning(false);
-        context.playerAnim.SetFalling(false);
+        context.playerAnim.SetMidJump(false);
     }
 
     public override void Update() 

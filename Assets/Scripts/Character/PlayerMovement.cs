@@ -19,7 +19,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 move;
     public Vector2 currentMove => move;
+
     private bool isRunning = false; // Flag to check if the player is currently running
+    public bool isPlayerRunning => isRunning;
 
     public void Move(Vector2 movementInput) {
         move = movementInput;

@@ -34,9 +34,11 @@ public class StateManager<EState> : MonoBehaviour where EState : Enum
 
     public void ChangeState(EState newState) {
         isInitialized = false;
-        currentState.Exit();
-        currentState = states[newState];
-        currentState.Enter();
+        if (!currentState.stateKey.Equals(newState)) {
+            currentState.Exit();
+            currentState = states[newState];
+            currentState.Enter();
+        }
         isInitialized = true;
     }
 
