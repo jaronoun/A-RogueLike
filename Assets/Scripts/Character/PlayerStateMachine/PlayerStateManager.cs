@@ -11,8 +11,8 @@ public class PlayerStateManager : StateManager<PlayerStateManager.EPlayerState>
         Running,
         StartJump,
         MidJump,
+        EndJump,
         Falling,
-        Landing,
         Climbing,
     }
 
@@ -31,8 +31,8 @@ public class PlayerStateManager : StateManager<PlayerStateManager.EPlayerState>
         states.Add(EPlayerState.Running, new PlayerRunningState(playerContext));
         states.Add(EPlayerState.StartJump, new PlayerStartJumpState(playerContext));
         states.Add(EPlayerState.MidJump, new PlayerMidJumpState(playerContext));
+        states.Add(EPlayerState.EndJump, new PlayerEndJumpState(playerContext));
         states.Add(EPlayerState.Falling, new PlayerFallingState(playerContext));
-        states.Add(EPlayerState.Landing, new PlayerLandingState(playerContext));
         currentState = states[EPlayerState.Idle];
     }
 
@@ -41,9 +41,11 @@ public class PlayerStateManager : StateManager<PlayerStateManager.EPlayerState>
         currentState.Update();
     }
 
-    public void HandleMovement(Vector2 movement, bool isRunning, bool isGrounded) 
+    public void HandleMovement(Vector2 movement, bool isRunning) 
     {
-        if (!isGrounded) return;
+        if (currentState.stateKey == EPlayerState.StartJump ||
+         currentState.stateKey == EPlayerState.MidJump || 
+         currentState.stateKey == EPlayerState.EndJump) return;
         if (isRunning) {
             ChangeState(EPlayerState.Running);
             return;

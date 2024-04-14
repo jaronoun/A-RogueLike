@@ -10,17 +10,11 @@ public class PlayerMidJumpState : PlayerState
     public override void Enter() 
     {
         Debug.Log("Player Mid Jump");
-        context.playerAnim.SetMidJump(true);
-        context.playerAnim.SetGrounded(false);
-        context.playerAnim.SetWalking(false);
-        context.playerAnim.SetRunning(false);
+        context.playerAnim.StartMidJump();
     }
     public override void Update() 
     {
-        if (context.playerJump.isPlayerGrounded)
-        {
-            context.playerState.ChangeState(PlayerStateManager.EPlayerState.Landing);
-        }
+        if (context.playerJump.isPlayerGrounded) context.playerState.ChangeState(PlayerStateManager.EPlayerState.EndJump);
     }
     public override void Exit() {}
 

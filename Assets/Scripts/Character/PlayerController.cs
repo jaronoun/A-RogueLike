@@ -34,13 +34,28 @@ public class PlayerController : MonoBehaviour
 
         controls = new PlayerControls();
         // Controls for moving
-        controls.Gameplay.Move.performed += ctx => { move = ctx.ReadValue<Vector2>(); playerStateManager.HandleMovement(move, playerMovement.isPlayerRunning, playerJump.isPlayerGrounded); };
-        controls.Gameplay.Move.canceled += ctx => { move = Vector2.zero; playerStateManager.HandleMovement(move, playerMovement.isPlayerRunning, playerJump.isPlayerGrounded); };
+        controls.Gameplay.Move.performed += ctx => { 
+            move = ctx.ReadValue<Vector2>(); 
+            playerStateManager.HandleMovement(move, playerMovement.isPlayerRunning); 
+        };
+        controls.Gameplay.Move.canceled += ctx => { 
+            move = Vector2.zero; 
+            playerStateManager.HandleMovement(move, playerMovement.isPlayerRunning);
+        };
         // Controls for jumping
-        controls.Gameplay.Jump.performed += ctx => { Jump(); playerStateManager.HandleJump(playerJump.isPlayerGrounded); };
+        controls.Gameplay.Jump.performed += ctx => { 
+            Jump(); 
+            playerStateManager.HandleJump(playerJump.isPlayerGrounded); 
+        };
         // Controls for running
-        controls.Gameplay.Run.performed += ctx => { StartRunning(); playerStateManager.HandleMovement(move, playerMovement.isPlayerRunning, playerJump.isPlayerGrounded); };
-        controls.Gameplay.Run.canceled += ctx => { StopRunning(); playerStateManager.HandleMovement(move, playerMovement.isPlayerRunning, playerJump.isPlayerGrounded); };
+        controls.Gameplay.Run.performed += ctx => { 
+            StartRunning(); 
+            playerStateManager.HandleMovement(move, playerMovement.isPlayerRunning); 
+        };
+        controls.Gameplay.Run.canceled += ctx => { 
+            StopRunning(); 
+            playerStateManager.HandleMovement(move, playerMovement.isPlayerRunning);
+        };
         // Controls for looking
         controls.Gameplay.Look.performed += ctx => look = ctx.ReadValue<Vector2>();
         controls.Gameplay.Look.canceled += ctx => look = Vector2.zero;

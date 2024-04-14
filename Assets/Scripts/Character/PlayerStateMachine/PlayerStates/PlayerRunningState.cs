@@ -10,10 +10,7 @@ public class PlayerRunningState : PlayerState
     public override void Enter() 
     {
         Debug.Log("Player Running");
-        context.playerAnim.SetGrounded(true);
-        context.playerAnim.SetWalking(false);
-        context.playerAnim.SetRunning(true);
-        context.playerAnim.SetMidJump(false);
+        context.playerAnim.StartRunning();
     }
     public override void Update() 
     {

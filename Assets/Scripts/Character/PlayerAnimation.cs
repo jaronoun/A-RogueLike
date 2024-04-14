@@ -5,49 +5,44 @@ public class PlayerAnimation : MonoBehaviour
     [Header("Animator")]
     [SerializeField] private Animator animator;
 
-    // General method for setting bools to reduce redundancy
-    private void SetBool(string name, bool state)
+    public AnimatorStateInfo GetAnimationStateInfo()
     {
-        animator.SetBool(name, state);
+        return animator.GetCurrentAnimatorStateInfo(0);
     }
 
-    // General method to directly set triggers
-    public void SetTrigger(string triggerName)
-    {
-        animator.SetTrigger(triggerName);
-    }
-
-    // General method for setting floats for movement
     public void SetMovement(float directionX, float directionY)
     {
         animator.SetFloat("moveX", directionX);
         animator.SetFloat("moveY", directionY);
     }
 
-    // Movement States
-    public void SetWalking(bool state)
+    public void StartIdle()
     {
-        SetBool("isWalking", state);
+        animator.CrossFade("Idle", 0.2f);
     }
 
-    public void SetRunning(bool state)
+    public void StartWalking()
     {
-        SetBool("isRunning", state);
+        animator.CrossFade("Movement", 0.2f);
     }
 
-    // Jump States
+    public void StartRunning()
+    {
+        animator.CrossFade("Running", 0.2f);
+    }
+
     public void StartJump()
     {
-        SetTrigger("StartJump");
+        animator.Play("StartJump");
     }
 
-    public void SetMidJump(bool state)
+    public void StartMidJump()
     {
-        SetBool("isMidJump", state);
+        animator.CrossFade("MidJump", 0.2f);
     }
 
-    public void SetGrounded(bool state)
+    public void StartEndJump()
     {
-        SetBool("isGrounded", state);
+        animator.CrossFade("EndJump", 0.2f);
     }
 }

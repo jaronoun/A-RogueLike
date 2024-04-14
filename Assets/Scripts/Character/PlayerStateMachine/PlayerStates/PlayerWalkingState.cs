@@ -10,18 +10,17 @@ public class PlayerWalkingState : PlayerState
     public override void Enter() 
     {
         Debug.Log("Player Walking");
-        context.playerAnim.SetGrounded(true);
-        context.playerAnim.SetWalking(true);
-        context.playerAnim.SetRunning(false);
-        context.playerAnim.SetMidJump(false);
+        context.playerAnim.StartWalking();
     }
 
     public override void Update() 
     {
+        if (context.playerJmp.isPlayerJumping) return; 
+        if (!context.playerJump.isPlayerGrounded) context.playerState.ChangeState(PlayerStateManager.EPlayerState.MidJump);
         Vector2 movement = context.playerMove.currentMove;
         context.playerAnim.SetMovement(movement.x, movement.y);
-        if (!context.playerJump.isPlayerGrounded) context.playerState.ChangeState(PlayerStateManager.EPlayerState.MidJump);
     }
+
     public override void Exit() {}
 
     public override PlayerStateManager.EPlayerState GetNextState() 

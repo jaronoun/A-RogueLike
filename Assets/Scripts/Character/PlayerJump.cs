@@ -15,7 +15,9 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] private CapsuleCollider col;
 
     private bool isGrounded;
+    private bool isJumping;
     public bool isPlayerGrounded => isGrounded;
+    public bool isPlayerJumping => isJumping;
     
     public bool CheckGrounded() {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -25,7 +27,9 @@ public class PlayerJump : MonoBehaviour
     }
 
     public void Jump() {
+        isJumping = true;
         if (isGrounded) rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        isJumping = false;
     }
 
     void SetCapsuleColliderHitbox(string colliderType) {
