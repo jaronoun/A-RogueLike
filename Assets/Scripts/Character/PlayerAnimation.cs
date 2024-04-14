@@ -23,7 +23,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void StartWalking()
     {
-        animator.CrossFade("Movement", 0.2f);
+        animator.CrossFade("Movement", 0.1f);
     }
 
     public void StartRunning()
