@@ -9,7 +9,7 @@ public class PlayerWalkingState : PlayerState
 
     public override void Enter() 
     {
-        Debug.Log("Player Walking");
+        // Debug.Log("Player Walking");
         context.playerAnim.StartWalking();
     }
 

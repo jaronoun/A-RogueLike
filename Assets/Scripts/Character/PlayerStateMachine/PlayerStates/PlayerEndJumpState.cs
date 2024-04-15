@@ -10,7 +10,7 @@ public class PlayerEndJumpState : PlayerState
 
     public override void Enter() 
     {
-        Debug.Log("Player End Jump");
+        // Debug.Log("Player End Jump");
         context.playerAnim.StartEndJump();
     }
     

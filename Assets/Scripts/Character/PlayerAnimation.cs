@@ -18,7 +18,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void StartIdle()
     {
-        animator.CrossFade("Idle", 0.2f);
+        animator.CrossFade("Idle", 0.1f);
     }
 
     public void StartWalking()
@@ -28,7 +28,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void StartRunning()
     {
-        animator.CrossFade("Running", 0.2f);
+        animator.CrossFade("Running", 0.1f);
     }
 
     public void StartJump()

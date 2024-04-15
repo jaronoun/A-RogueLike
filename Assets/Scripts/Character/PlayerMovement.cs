@@ -3,8 +3,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] public float baseSpeed = 1.8f;
-    [SerializeField] public float midSpeed = 3.6f;
+    [SerializeField] public float baseSpeed = 2.6f;
+    [SerializeField] public float midSpeed = 3.8f;
     [SerializeField] public float maxSpeed = 5.4f;
     [SerializeField] public float rotationSpeed = 10.0f;
 
@@ -29,10 +29,10 @@ public class PlayerMovement : MonoBehaviour
         Vector3 cameraForward = cameraTransform.forward;
         Vector3 cameraRight = cameraTransform.right;
 
-        cameraForward.y = 0; // Ensure movement is only on the horizontal plane
+        cameraForward.y = 0;
         cameraRight.y = 0;
 
-        Vector3 adjustedMovement = (cameraForward * moveVertical + cameraRight * moveHorizontal).normalized;
+        Vector3 adjustedMovement = (cameraForward * moveVertical + cameraRight * moveHorizontal);
         float currentSpeed = isRunning ? maxSpeed : Mathf.Lerp(baseSpeed, midSpeed, adjustedMovement.magnitude);
 
         if (adjustedMovement.magnitude > 0) {

@@ -9,7 +9,7 @@ public class PlayerRunningState : PlayerState
 
     public override void Enter() 
     {
-        Debug.Log("Player Running");
+        // Debug.Log("Player Running");
         context.playerAnim.StartRunning();
     }
     public override void Update() 
