@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider col;
     
     [Header("Controls")]
-    [SerializeField] private PlayerControls controls;
+    [SerializeField] private PlayerInput input;
 
     [Header("Camera")]
     [SerializeField] private PlayerCamera playerCamera;
@@ -32,41 +32,41 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
 
-        controls = new PlayerControls();
-        // Controls for moving
-        controls.Gameplay.Move.performed += ctx => { 
+        input = new PlayerInput();
+        // Input for moving
+        input.Gameplay.Move.performed += ctx => { 
             move = ctx.ReadValue<Vector2>(); 
             playerStateManager.HandleMovement(move, playerMovement.isPlayerRunning); 
         };
-        controls.Gameplay.Move.canceled += ctx => { 
+        input.Gameplay.Move.canceled += ctx => { 
             move = Vector2.zero; 
             playerStateManager.HandleMovement(move, playerMovement.isPlayerRunning);
         };
-        // Controls for jumping
-        controls.Gameplay.Jump.performed += ctx => { 
+        // Input for jumping
+        input.Gameplay.Jump.performed += ctx => { 
             Jump(); 
             playerStateManager.HandleJump(playerJump.isPlayerGrounded); 
         };
-        // Controls for running
-        controls.Gameplay.Run.performed += ctx => { 
+        // Input for running
+        input.Gameplay.Run.performed += ctx => { 
             StartRunning(); 
             playerStateManager.HandleMovement(move, playerMovement.isPlayerRunning); 
         };
-        controls.Gameplay.Run.canceled += ctx => { 
+        input.Gameplay.Run.canceled += ctx => { 
             StopRunning(); 
             playerStateManager.HandleMovement(move, playerMovement.isPlayerRunning);
         };
-        // Controls for looking
-        controls.Gameplay.Look.performed += ctx => look = ctx.ReadValue<Vector2>();
-        controls.Gameplay.Look.canceled += ctx => look = Vector2.zero;
+        // Input for looking
+        input.Gameplay.Look.performed += ctx => look = ctx.ReadValue<Vector2>();
+        input.Gameplay.Look.canceled += ctx => look = Vector2.zero;
     }
 
     private void OnEnable() {
-        controls.Gameplay.Enable();
+        input.Gameplay.Enable();
     }
 
     private void OnDisable() {
-        controls.Gameplay.Disable();
+        input.Gameplay.Disable();
     }
 
     private void Update() {

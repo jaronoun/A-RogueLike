@@ -9,7 +9,7 @@ public class PlayerIdleState : PlayerState
 
     public override void Enter() 
     {
-        // Debug.Log("Player Idle");
+        Debug.Log("Player Idle");
         context.playerAnim.StartIdle();
     }
 

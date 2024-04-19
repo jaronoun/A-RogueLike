@@ -9,7 +9,7 @@ public class PlayerMidJumpState : PlayerState
 
     public override void Enter() 
     {
-        // Debug.Log("Player Mid Jump");
+        Debug.Log("Player Mid Jump");
         context.playerAnim.StartMidJump();
     }
     public override void Update() 

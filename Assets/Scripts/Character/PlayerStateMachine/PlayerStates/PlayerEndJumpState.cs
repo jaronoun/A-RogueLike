@@ -10,14 +10,14 @@ public class PlayerEndJumpState : PlayerState
 
     public override void Enter() 
     {
-        // Debug.Log("Player End Jump");
+        Debug.Log("Player End Jump");
         context.playerAnim.StartEndJump();
     }
     
     public override void Update() 
     {
         AnimatorStateInfo stateInfo = context.playerAnim.GetAnimationStateInfo();
-        if (stateInfo.IsName("EndJump") && stateInfo.normalizedTime >= 0.25f) {
+        if (stateInfo.IsName("End Jump") && stateInfo.normalizedTime >= 0.25f) {
             if (context.playerMove.currentMove != Vector2.zero) context.playerState.ChangeState(PlayerStateManager.EPlayerState.Walking);
             else context.playerState.ChangeState(PlayerStateManager.EPlayerState.Idle);
         }

@@ -9,14 +9,14 @@ public class PlayerStartJumpState : PlayerState
 
     public override void Enter() 
     {
-        // Debug.Log("Player Start Jump");
+        Debug.Log("Player Start Jump");
         context.playerAnim.StartJump();
     }
 
     public override void Update() 
     {
         AnimatorStateInfo stateInfo = context.playerAnim.GetAnimationStateInfo();
-        if (stateInfo.IsName("StartJump") && stateInfo.normalizedTime >= 0.8f) { 
+        if (stateInfo.IsName("Start Jump") && stateInfo.normalizedTime >= 0.8f) { 
             context.playerState.ChangeState(PlayerStateManager.EPlayerState.MidJump); 
             return; 
         }

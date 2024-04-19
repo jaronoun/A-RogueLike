@@ -39,11 +39,13 @@ public class PlayerJump : MonoBehaviour
                 col.center = new Vector3(0, 0.9f, 0);
                 col.radius = 0.27f;
                 col.height = 1.8f;
+                // groundCheck.localPosition = new Vector3(0, 0, 0);
                 break;
             case "mid air":
                 col.center = new Vector3(0.1f, 1f, 0);
                 col.radius = 0.2f;
                 col.height = 1.312492f;
+                // groundCheck.localPosition = new Vector3(0, 0.4f, 0);
                 break;
         }
     }
