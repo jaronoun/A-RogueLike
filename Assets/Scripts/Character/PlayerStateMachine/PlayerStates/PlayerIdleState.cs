@@ -1,32 +1,35 @@
 using UnityEngine;
 
-public class PlayerIdleState : PlayerState
+namespace Character.PlayerStateMachine.PlayerStates
 {
-
-    public PlayerIdleState(PlayerContext context) : base(context, PlayerStateManager.EPlayerState.Idle)
+    public class PlayerIdleState : PlayerState
     {
-    }
 
-    public override void Enter() 
-    {
-        Debug.Log("Player Idle");
-        context.playerAnim.StartIdle();
-    }
+        public PlayerIdleState(PlayerContext context) : base(context, PlayerStateManager.EPlayerState.Idle)
+        {
+        }
 
-    public override void Update() 
-    {
+        public override void Enter() 
+        {
+            Debug.Log("Player Idle");
+            context.playerAnim.StartIdle();
+        }
+
+        public override void Update() 
+        {
         
-    }
+        }
 
-    public override void Exit() {}
+        public override void Exit() {}
 
-    public override PlayerStateManager.EPlayerState GetNextState() 
-    {
-        return stateKey;
+        public override PlayerStateManager.EPlayerState GetNextState() 
+        {
+            return stateKey;
+        }
+    
+        public override void OnTriggerEnter(Collider other) {}
+        public override void OnTriggerExit(Collider other) {}
+        public override void OnCollisionEnter(Collision other) {}
+    
     }
-    
-    public override void OnTriggerEnter(Collider other) {}
-    public override void OnTriggerExit(Collider other) {}
-    public override void OnCollisionEnter(Collision other) {}
-    
 }

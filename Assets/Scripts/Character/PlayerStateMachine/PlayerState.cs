@@ -1,12 +1,15 @@
-using UnityEngine;
+using StateMachine;
 
-public abstract class PlayerState : BaseState<PlayerStateManager.EPlayerState>
+namespace Character.PlayerStateMachine
 {
-    protected PlayerContext context;
-
-    public PlayerState(PlayerContext context, PlayerStateManager.EPlayerState stateKey) : base(stateKey)
+    public abstract class PlayerState : BaseState<PlayerStateManager.EPlayerState>
     {
-        this.context = context;
+        protected PlayerContext context;
+
+        protected PlayerState(PlayerContext context, PlayerStateManager.EPlayerState stateKey) : base(stateKey)
+        {
+            this.context = context;
+        }
     }
 }
 

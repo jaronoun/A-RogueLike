@@ -1,22 +1,25 @@
 using UnityEngine;
 
-public class PlayerBumper : MonoBehaviour
+namespace Character
 {
-    [Header("Bump Settings")]
-    public float bumpForce = 10f; // The force to apply when bumping the character
-
-    private void OnTriggerEnter(Collider other)
+    public class PlayerBumper : MonoBehaviour
     {
-        Rigidbody rb = other.attachedRigidbody;
+        [Header("Bump Settings")]
+        public float bumpForce = 10f; // The force to apply when bumping the character
 
-        // Check if the object entering the trigger has a Rigidbody (i.e., can be bumped)
-        if (rb != null)
+        private void OnTriggerEnter(Collider other)
         {
-            Vector3 bumpDirection = other.transform.position - transform.position;
-            bumpDirection.y = 0; // Optionally, neutralize the vertical component if you only want horizontal bumping
-            bumpDirection.Normalize(); // Get a normalized direction vector
+            Rigidbody rb = other.attachedRigidbody;
 
-            rb.AddForce(bumpDirection * bumpForce, ForceMode.VelocityChange); // Apply the bump force
+            // Check if the object entering the trigger has a Rigidbody (i.e., can be bumped)
+            if (rb != null)
+            {
+                Vector3 bumpDirection = other.transform.position - transform.position;
+                bumpDirection.y = 0; // Optionally, neutralize the vertical component if you only want horizontal bumping
+                bumpDirection.Normalize(); // Get a normalized direction vector
+
+                rb.AddForce(bumpDirection * bumpForce, ForceMode.VelocityChange); // Apply the bump force
+            }
         }
     }
 }
