@@ -50,7 +50,7 @@ namespace Character.PlayerStateMachine
             if (currentState.stateKey == EPlayerState.StartJump ||
                 currentState.stateKey == EPlayerState.MidJump || 
                 currentState.stateKey == EPlayerState.EndJump) return;
-            if (isRunning) {
+            if (movement != Vector2.zero && isRunning) {
                 ChangeState(EPlayerState.Running);
                 return;
             }
