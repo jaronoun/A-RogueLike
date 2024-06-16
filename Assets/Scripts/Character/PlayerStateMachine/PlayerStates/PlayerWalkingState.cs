@@ -11,7 +11,6 @@ namespace Character.PlayerStateMachine.PlayerStates
 
         public override void Enter() 
         {
-            Debug.Log("Player Walking");
             context.playerAnim.StartWalking();
         }
 

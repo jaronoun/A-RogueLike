@@ -11,7 +11,6 @@ namespace Character.PlayerStateMachine.PlayerStates
 
         public override void Enter() 
         {
-            Debug.Log("Player Start Jump");
             context.playerAnim.StartJump();
         }
 
