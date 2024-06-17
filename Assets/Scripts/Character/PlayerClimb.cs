@@ -15,9 +15,9 @@ namespace Character
         [SerializeField] private GameObject effectorIdle;
 
         [Header("Climb Settings")] [SerializeField]
-        private float grabHeight = 1.5f;
+        private float grabHeight = 2.25f;
 
-        [SerializeField] private float grabDistance = 1f;
+        [SerializeField] private float grabDistance = 0.65f;
 
         private int rayCasts = 25;
         public bool isHanging = false;
@@ -62,9 +62,11 @@ namespace Character
             layerMask = ~layerMask;
 
             RaycastHit hit;
+            RaycastHit hitUp;
             RaycastHit highestHit = new RaycastHit();
             Vector3 forward = transform.TransformDirection(Vector3.forward);
             Vector3 down = transform.TransformDirection(Vector3.down);
+            Vector3 up = transform.TransformDirection(Vector3.up);
             Vector3 origin = transform.position;
 
             for (int i = 0; i < rayCasts; i++)
@@ -82,7 +84,8 @@ namespace Character
             {
                 if (Physics.SphereCast(highestHit.point + new Vector3(0, 1, 0), 0.05f, down, out hit, 1f, layerMask))
                 {
-                    if (hit.point.y <= transform.position.y + grabHeight)
+                    if (Physics.SphereCast(highestHit.point, 0f, Vector3.up, out hitUp, 1f, layerMask)) return false;
+                    if (hit.point.y <= transform.position.y + grabHeight && !Physics.SphereCast(transform.position, 0.1f, Vector3.up, out hitUp, 2.25f, layerMask))
                     {
                         Vector3 hangPos = hit.point;
                         Vector3 offset = forward * -0.2f + transform.up * -1.75f;
@@ -102,10 +105,12 @@ namespace Character
             layerMask = ~layerMask;
 
             RaycastHit hit = new RaycastHit();
+            RaycastHit hitUp = new RaycastHit();
+            RaycastHit highestHit = new RaycastHit();
             Vector3 forward = transform.TransformDirection(Vector3.forward);
             Vector3 down = transform.TransformDirection(Vector3.down);
+            Vector3 up = transform.TransformDirection(Vector3.up);
             Vector3 origin = transform.position;
-            Vector3 highestHit = Vector3.zero;
 
             for (int i = 0; i < rayCasts; i++)
             {
@@ -115,22 +120,23 @@ namespace Character
                     Debug.DrawRay(origin, forward * hit.distance, Color.blue);
                     if (transform.position.y < hit.point.y)
                     {
-                        highestHit = hit.point;
+                        highestHit.point = hit.point;
                     }
                 }
             }
 
-            if (highestHit != Vector3.zero)
+            if (highestHit.point != Vector3.zero)
             {
                 effectorIdle.SetActive(true);
                 effectorIdle.transform.position =
-                    new Vector3(highestHit.x, transform.position.y + grabHeight, highestHit.z);
-                if (Physics.SphereCast(highestHit + new Vector3(0, 1, 0), 0.05f, down, out hit, 1f, layerMask))
+                    new Vector3(highestHit.point.x, transform.position.y + grabHeight, highestHit.point.z);
+                if (Physics.SphereCast(highestHit.point + new Vector3(0, 1, 0), 0.05f, down, out hit, 1f, layerMask))
                 {
-                    Debug.DrawRay(highestHit + new Vector3(0, 1, 0), down, Color.red);
+                    Debug.DrawRay(highestHit.point + new Vector3(0, 1, 0), down, Color.red);
                     effectorDisable.SetActive(true);
                     effectorDisable.transform.position = hit.point;
-                    if (hit.point.y <= transform.position.y + grabHeight)
+                    Debug.DrawRay(transform.position, up * 2.25f, Color.green);
+                    if (hit.point.y <= transform.position.y + grabHeight && !Physics.SphereCast(transform.position, 0.1f, Vector3.up, out hitUp, 2.25f, layerMask))
                     {
                         effectorEnable.SetActive(true);
                         effectorDisable.SetActive(false);

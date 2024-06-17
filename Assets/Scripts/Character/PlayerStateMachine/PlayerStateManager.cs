@@ -48,12 +48,6 @@ namespace Character.PlayerStateMachine
         private void Update()
         {
             currentState.Update();
-            var state = currentState.stateKey.ToString();
-            if (state != prevState)
-            {
-                Debug.Log(state);
-                prevState = state;
-            }
         }
 
         public void HandleMovement(Vector2 movement, bool isRunning) 
@@ -78,6 +72,10 @@ namespace Character.PlayerStateMachine
             if (!isGrounded) return;
             ChangeState(EPlayerState.StartJump);
         }
-
+        
+        public string GetCurrentState() 
+        {
+            return currentState.stateKey.ToString();
+        }
     }
 }
