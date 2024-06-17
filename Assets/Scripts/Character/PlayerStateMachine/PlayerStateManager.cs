@@ -7,6 +7,7 @@ namespace Character.PlayerStateMachine
     public class PlayerStateManager : StateManager<PlayerStateManager.EPlayerState>
     {
         private PlayerContext playerContext;
+        private string prevState;
     
         public enum EPlayerState
         {
@@ -17,14 +18,16 @@ namespace Character.PlayerStateMachine
             MidJump,
             EndJump,
             Falling,
-            Climbing,
+            MidJumpBrace,
+            Brace,
         }
 
         void Awake() {
             var playerAnimation = GetComponent<PlayerAnimation>();
             var playerMovement = GetComponent<PlayerMovement>();
+            var playerClimb = GetComponent<PlayerClimb>();
             var playerJump = GetComponent<PlayerJump>();
-            playerContext = new PlayerContext(this, playerAnimation, playerMovement, playerJump);
+            playerContext = new PlayerContext(this, playerAnimation, playerMovement, playerClimb, playerJump);
             InitializePlayerStates();
         }
 
@@ -37,16 +40,25 @@ namespace Character.PlayerStateMachine
             states.Add(EPlayerState.MidJump, new PlayerMidJumpState(playerContext));
             states.Add(EPlayerState.EndJump, new PlayerEndJumpState(playerContext));
             states.Add(EPlayerState.Falling, new PlayerFallingState(playerContext));
+            states.Add(EPlayerState.MidJumpBrace, new PlayerMidJumpBraceState(playerContext));
+            states.Add(EPlayerState.Brace, new PlayerBraceState(playerContext));
             currentState = states[EPlayerState.Idle];
         }
 
         private void Update()
         {
             currentState.Update();
+            var state = currentState.stateKey.ToString();
+            if (state != prevState)
+            {
+                Debug.Log(state);
+                prevState = state;
+            }
         }
 
         public void HandleMovement(Vector2 movement, bool isRunning) 
         {
+            if (playerContext.playerClimb.isHanging) return;
             if (currentState.stateKey == EPlayerState.StartJump ||
                 currentState.stateKey == EPlayerState.MidJump || 
                 currentState.stateKey == EPlayerState.EndJump) return;

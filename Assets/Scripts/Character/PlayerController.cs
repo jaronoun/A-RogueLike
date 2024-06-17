@@ -53,6 +53,11 @@ namespace Character
                 Jump(); 
                 playerStateManager.HandleJump(playerJump.isPlayerGrounded); 
             };
+            
+            input.Gameplay.Climb.performed += ctx => { 
+                Climb(); 
+                // playerStateManager.HandleClimb(playerClimb.isHanging); 
+            };
             // Input for running
             input.Gameplay.Run.performed += ctx => { 
                 StartRunning(); 
@@ -80,16 +85,32 @@ namespace Character
             playerCamera.ShootRaycastFromCamera();
             playerCamera.AdjustHeadRigWeight();
             SetMaterial();
-            // Call other non-movement methods here (e.g., ShootRaycastFromCamera, AdjustHeadRigWeight)
+
         }
 
-        private void FixedUpdate() {
+        private void FixedUpdate()
+        {
+            if (playerClimb.isHanging) return;
             playerMovement.Move(move);
-            // Call other non-movement methods here (e.g., Jump, Run)
         }
 
         private void Jump() {
+            if (playerClimb.isHanging)
+            {
+                playerJump.HangJump();
+            }
             playerJump.Jump();
+        }
+        
+        private void Climb() {
+            if (!playerClimb.isHanging)
+            {
+                playerClimb.Climb();
+            }
+            else
+            {
+                playerClimb.StopClimbing();
+            }
         }
 
         private void StartRunning() {

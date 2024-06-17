@@ -21,6 +21,11 @@ namespace Character
 
         private bool isRunning = false; // Flag to check if the player is currently running
         public bool isPlayerRunning => isRunning;
+        
+        private void Start()
+        {
+            rb = GetComponent<Rigidbody>();
+        }
 
         public void Move(Vector2 movementInput) {
             move = movementInput;

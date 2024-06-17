@@ -47,5 +47,15 @@ namespace Character
         {
             animator.CrossFade("End Jump", 0.2f);
         }
+
+        public void StartMidJumpBrace()
+        {
+            animator.CrossFade("Mid Jump Brace", 0.2f);
+        }
+        
+        public void StartBrace()
+        {
+            animator.CrossFade("Brace Hang", 0.2f);
+        }
     }
 }

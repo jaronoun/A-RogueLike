@@ -4,8 +4,9 @@ namespace Character
 {
     public class PlayerJump : MonoBehaviour
     {
-        [Header("Jumping")]
+        [Header("Jump Settings")]
         [SerializeField] private float jumpForce = 4.5f;
+        [SerializeField] private float hangJumpForce = 3.5f;
     
         [Header("Ground Check")]
         [SerializeField] private float groundDistance = 0.1f;
@@ -20,6 +21,12 @@ namespace Character
         private bool isJumping;
         public bool isPlayerGrounded => isGrounded;
         public bool isPlayerJumping => isJumping;
+        
+        private void Start()
+        {
+            rb = GetComponent<Rigidbody>();
+            col = GetComponent<CapsuleCollider>();
+        }
     
         public bool CheckGrounded() {
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -31,6 +38,13 @@ namespace Character
         public void Jump() {
             isJumping = true;
             if (isGrounded) rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isJumping = false;
+        }
+
+        public void HangJump()
+        {
+            isJumping = true;
+            rb.AddForce(Vector3.up * hangJumpForce, ForceMode.Impulse);
             isJumping = false;
         }
 

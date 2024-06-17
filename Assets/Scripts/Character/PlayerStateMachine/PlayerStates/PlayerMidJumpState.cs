@@ -16,6 +16,7 @@ namespace Character.PlayerStateMachine.PlayerStates
         public override void Update() 
         {
             if (context.playerJump.isPlayerGrounded) context.playerState.ChangeState(PlayerStateManager.EPlayerState.EndJump);
+            if (context.playerClimb.isHanging) context.playerState.ChangeState(PlayerStateManager.EPlayerState.MidJumpBrace);
         }
         public override void Exit() {}
 

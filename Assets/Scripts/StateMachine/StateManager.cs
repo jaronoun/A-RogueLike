@@ -43,6 +43,5 @@ namespace StateMachine
             }
             isInitialized = true;
         }
-
     }
 }
