@@ -57,5 +57,15 @@ namespace Character
         {
             animator.CrossFade("Brace Hang", 0.2f);
         }
+        
+        public void StartCrouch()
+        {
+            animator.CrossFade("Crouch", 0.2f);
+        }
+        
+        public void StartBraceCrouch()
+        {
+            animator.CrossFade("Brace Crouch", 0.2f);
+        }
     }
 }

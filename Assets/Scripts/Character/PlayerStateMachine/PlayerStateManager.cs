@@ -20,6 +20,8 @@ namespace Character.PlayerStateMachine
             Falling,
             MidJumpBrace,
             Brace,
+            Crouch,
+            BraceCrouch,
         }
 
         void Awake() {
@@ -42,6 +44,8 @@ namespace Character.PlayerStateMachine
             states.Add(EPlayerState.Falling, new PlayerFallingState(playerContext));
             states.Add(EPlayerState.MidJumpBrace, new PlayerMidJumpBraceState(playerContext));
             states.Add(EPlayerState.Brace, new PlayerBraceState(playerContext));
+            states.Add(EPlayerState.Crouch, new PlayerCrouchState(playerContext));
+            states.Add(EPlayerState.BraceCrouch, new PlayerBraceCrouchState(playerContext));
             currentState = states[EPlayerState.Idle];
         }
 
@@ -72,10 +76,15 @@ namespace Character.PlayerStateMachine
             if (!isGrounded) return;
             ChangeState(EPlayerState.StartJump);
         }
+        public void HandleLedgeClimb(bool isHanging) 
+        {
+            if (isHanging) ChangeState(EPlayerState.BraceCrouch);
+        }
         
         public string GetCurrentState() 
         {
             return currentState.stateKey.ToString();
         }
+
     }
 }

@@ -56,7 +56,6 @@ namespace Character
             
             input.Gameplay.Climb.performed += ctx => { 
                 Climb(); 
-                // playerStateManager.HandleClimb(playerClimb.isHanging); 
             };
             // Input for running
             input.Gameplay.Run.performed += ctx => { 
@@ -97,7 +96,10 @@ namespace Character
         private void Jump() {
             if (playerClimb.isHanging)
             {
-                playerJump.HangJump();
+                // playerJump.HangJump();
+                playerClimb.ClimbLedge();
+                playerStateManager.HandleLedgeClimb(playerClimb.isHanging);
+                return;
             }
             playerJump.Jump();
         }

@@ -2468,11 +2468,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  col: {fileID: 0}
+  colBumper: {fileID: 1540901855}
   effectorEnable: {fileID: 515811783386634128, guid: d076818a332ac59428b91c0cbf1f8055, type: 3}
   effectorDisable: {fileID: 199481162037238279, guid: e4670140b57378947885176015c80663, type: 3}
   effectorIdle: {fileID: 4897188685559397002, guid: a9a20d4515664814d8a169196401fa73, type: 3}
   grabHeight: 2.25
-  grabDistance: 0.65
+  grabDistance: 0.75
+  climbHeight: 1.5
+  climbDuration: 0.5
   isHanging: 0
 --- !u!1 &1272992676
 GameObject:
@@ -2842,10 +2846,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.27029476
   m_Height: 1.1951382
   m_Direction: 1
-  m_Center: {x: 0, y: 0.94756925, z: 0}
+  m_Center: {x: 0.0029259324, y: 0.94756925, z: 0.0010814369}
 --- !u!1 &1720098491
 GameObject:
   m_ObjectHideFlags: 0
